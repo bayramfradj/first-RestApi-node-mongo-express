@@ -23,6 +23,32 @@ router.get('/:id', async (req,res)=>{
     }   
 });
 
+//remove post by id
+router.delete('/:id', async (req,res)=>{
+    try {
+        const post = await Post.deleteOne({_id : req.params.id});
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(404).send(error);
+    }   
+});
+
+//Update post
+router.patch('/:id',async (req,res)=>{
+   try {
+       const updatedPost = await Post.updateOne({_id : req.params.id},{
+            $set : {
+                title : req.body.title,
+                description : req.body.description
+            }
+        });
+        res.status(200).json(updatedPost);
+   } catch (error) {
+       res.status(404).send(error);
+   }
+    
+});
+
 //add Post
 router.post('/', async (req,res)=>{
     const post = new Post({
