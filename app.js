@@ -5,13 +5,17 @@ const app = express();
 const mongoose = require('mongoose');
 
 const bodyParser = require('body-parser');
+const cors  = require('cors');
 require('dotenv/config');
 
-const postRoute = require('./routes/posts');
-
+//middlewares
+app.use(cors());
 app.use(bodyParser.json());
 
-//routes
+//import Routs
+const postRoute = require('./routes/posts');
+
+
 app.use('/posts',postRoute);
 
 
